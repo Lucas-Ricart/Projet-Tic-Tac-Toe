@@ -12,11 +12,17 @@ def tab(case):
         print(f"|    {case[i]}    |    {case[i+1]}    |    {case[i+2]}    |")
         print(espace)
         print(ligne)
-def check_win(case):
+def check_win(case,symbol):
     raw(case)
     col(case)
     diag(case)
     if raw(case)==True or col(case)==True or diag(case)==True:
+        tab(case)
+        if symbol=="X":
+                symbol="O"
+        else:
+            symbol="X"
+        print("Bravo",symbol)
         return True
 def raw(case):
     if case[0]==case[1]==case[2]:
@@ -64,12 +70,7 @@ while restart!="n" or restart!="N":
     for i in range(9):
         symbol=players(symbol)
         tab(case)
-        if check_win(case)==True:
-            if symbol=="X":
-                symbol="O"
-            else:
-                symbol="X"
-            print("Bravo",symbol)
+        if check_win(case,symbol)==True:
             break
         elif i==8:
             print("Match nul !!!")
