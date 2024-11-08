@@ -81,7 +81,8 @@ while restart!="n" or restart!="N":
         case=["1","2","3",
               "4","5","6",
               "7","8","9"]
-        print("C'est reparti !!!")        
+        print("C'est reparti !!!")
+        symbol="X"        
     else:
         while restart!="o" or restart!="O" or restart!="n" or restart!="N":
             restart=input("ERREUR !!! Continuer ? (O/N) :")
@@ -90,6 +91,7 @@ while restart!="n" or restart!="N":
                       "4","5","6",
                       "7","8","9"]
                 print("C'est reparti !!!")
+                symbol="X"
                 break
             elif restart=="n" or restart=="N":
                 break
