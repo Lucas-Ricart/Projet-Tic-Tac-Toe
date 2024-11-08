@@ -44,11 +44,11 @@ def diag(case):
     elif case[2]==case[4]==case[6]:
         return True
 def players(symbol):
-    select=int(input(f"Joueur {symbol}, choisissez une case sur laquelle jouer :"))
+    select=int(input(f"Joueur {symbol}, choisissez une case sur laquelle jouer : "))
     if select>9 or case[select-1]=="X" or case[select-1]=="O":
             while True:
                 if select>9 or case[select-1]=="X" or case[select-1]=="O":
-                    select=int(input(f"MAUVAISE CASE !!! Joueur {symbol}, rejouez :"))
+                    select=int(input(f"MAUVAISE CASE !!! Joueur {symbol}, rejouez : "))
                 elif symbol=="X":
                     case[select-1]=symbol
                     symbol="O"
@@ -74,7 +74,7 @@ while restart!="n" or restart!="N":
             break
         elif i==8:
             print("Match nul !!!")
-    restart=input("Continuer ? (O/N) :")
+    restart=input("Continuer ? (O/N) : ")
     if restart=="n" or restart=="N":
         break
     elif restart=="o" or restart=="O":
@@ -85,7 +85,7 @@ while restart!="n" or restart!="N":
         symbol="X"        
     else:
         while restart!="o" or restart!="O" or restart!="n" or restart!="N":
-            restart=input("ERREUR !!! Continuer ? (O/N) :")
+            restart=input("ERREUR !!! Continuer ? (O/N) : ")
             if restart=="o" or restart=="O":
                 case=["1","2","3",
                       "4","5","6",
