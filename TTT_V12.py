@@ -3,6 +3,7 @@ case=["1","2","3",
       "7","8","9"]
 symbol="X"
 restart=""
+
 def tab(case):
     espace="|         |         |         |"
     ligne="+---------+---------+---------+"
@@ -12,6 +13,7 @@ def tab(case):
         print(f"|    {case[i]}    |    {case[i+1]}    |    {case[i+2]}    |")
         print(espace)
         print(ligne)
+
 def check_win(case,symbol):
     raw(case)
     col(case)
@@ -24,6 +26,7 @@ def check_win(case,symbol):
             symbol="X"
         print("Bravo",symbol)
         return True
+
 def raw(case):
     if case[0]==case[1]==case[2]:
         return True
@@ -31,6 +34,7 @@ def raw(case):
         return True
     elif case[6]==case[7]==case[8]:
         return True
+
 def col(case):
     if case[0]==case[3]==case[6]:
         return True
@@ -38,11 +42,13 @@ def col(case):
         return True
     elif case[2]==case[5]==case[8]:
         return True
+
 def diag(case):
     if case[0]==case[4]==case[8]:
         return True
     elif case[2]==case[4]==case[6]:
         return True
+
 def players(symbol,case):
     select=int(input(f"Joueur {symbol}, choisissez une case sur laquelle jouer : "))
     if select>9 or case[select-1]=="X" or case[select-1]=="O":
@@ -64,6 +70,7 @@ def players(symbol,case):
         case[select-1]=symbol
         symbol="O"
     return symbol
+
 def multi(case,symbol,restart):
     while restart!="n" or restart!="N":
         tab(case)
@@ -97,8 +104,64 @@ def multi(case,symbol,restart):
                     break
             if restart=="n" or restart=="N":
                 break
+
+def singleplayer(symbol,case):
+    if symbol=="X":
+        select=int(input("Choisissez une case sur laquelle jouer : "))
+        if select>9 or case[select-1]=="X" or case[select-1]=="O":
+            while True:
+                if select>9 or case[select-1]=="X" or case[select-1]=="O":
+                    select=int(input("MAUVAISE CASE !!! Rejouez : "))
+                elif symbol=="X":
+                    case[select-1]=symbol
+                    symbol="O"
+                    break
+        elif case[select-1]!="X" and case[select-1]!="O":
+            case[select-1]=symbol
+            symbol="O"
+    elif  symbol=="O":
+        while symbol=="O":
+            select=0
+            if case[select-1]!="X" or case[select-1]!="O":
+                case[select-1]=symbol
+                symbol="X"
+            else:
+                select=select+1
+    return symbol
+
 def solo(case,symbol,restart):
-    print("bot")
+    while restart!="n" or restart!="N":
+        tab(case)
+        for i in range(5):
+            symbol=singleplayer(symbol,case)
+            tab(case)
+            if check_win(symbol,case)==True:
+                break
+            elif i==8:
+                print("Match nul !!!")
+        restart=input("Continuer ? (O/N) : ")
+        if restart=="n" or restart=="N":
+            break
+        elif restart=="o" or restart=="O":
+            case=["1","2","3",
+                  "4","5","6",
+                  "7","8","9"]
+            print("C'est reparti !!!")
+            symbol="X"  
+        else:
+            while restart!="o" or restart!="O" or restart!="n" or restart!="N":
+                restart=input("ERREUR !!! Continuer ? (O/N) : ")
+                if restart=="o" or restart=="O":
+                    case=["1","2","3",
+                          "4","5","6",
+                          "7","8","9"]
+                    print("C'est reparti !!!")
+                    symbol="X"
+                    break
+                elif restart=="n" or restart=="N":
+                    break
+            if restart=="n" or restart=="N":
+                break
 
 
 
@@ -106,13 +169,13 @@ def solo(case,symbol,restart):
 
 
 
-cp=input("1 joueur ou 2 joueurs : ")
+sp=input("1 joueur ou 2 joueurs : ")
 while True:
-    if cp=="1":
+    if sp=="1":
         solo(case,symbol,restart)
         break
-    elif cp=="2":
+    elif sp=="2":
         multi(case,symbol,restart)
         break
     else:
-        cp=input("Erreur !!! 1 joueur ou 2 joueurs : ")
+        sp=input("Erreur !!! 1 joueur ou 2 joueurs : ")
