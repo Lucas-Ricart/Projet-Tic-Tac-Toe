@@ -6,6 +6,7 @@ case = [                                                                        
 symbol = "X"                                                                            #variable pour l'affichage du joueur
 restart = "o"                                                                           #variable pour continuer à jouer ou sortir de la boucle principale
 counter = 1                                                                             #compteur de partie
+place = 0
 def tab(case):                                                                          #fonction tab, affichage du plateau de jeu
     espace="|         |         |         |"
     ligne="+---------+---------+---------+"
@@ -64,11 +65,11 @@ while restart!="n" and restart!="N":                                            
         tab(case)                                                                       #affiche le plateau
         for i in range(9):                                                              #boucle, sortie en cas de victoire ou après 9 'passages'
             select = int(input(f"{symbol}, choisissez une case sur laquelle jouer : ")) #joueur donné par symbol, choisi la case où il veut jouer
-            if select>9 or case[select-1]=="X" or case[select-1]=="O":                  #si entrée pas ok et case pas dispo alors
+            if 0>select>9 or case[select-1]=="X" or case[select-1]=="O":                  #si entrée pas ok et case pas dispo alors
                 while True:                                                             #boucle pour avoir une bonne entrée
-                    if select>9 or case[select-1]=="X" or case[select-1]=="O":          #si toujours pas ok
+                    if 0>select>9 or case[select-1]=="X" or case[select-1]=="O":          #si toujours pas ok
                         select=int(input(f"Mauvaise case... {symbol}, rejouez : "))     #demande case de jeu
-                    elif symbol=="X":                                                   #si ok et tour de X
+                    elif 0>symbol=="X":                                                   #si ok et tour de X
                         case[select-1] = "X"                                            #met X sur la case selectionné
                         symbol = "O"                                                    #passe au joueur O
                         break                                                           #sortie boucle, entrée ok
@@ -94,11 +95,11 @@ while restart!="n" and restart!="N":                                            
         tab(case)                                                                       #affiche plateau
         for i in range(5):                                                              #boucle, sortie en cas de victoire ou après 5 'passages'
             select = int(input("X, choisissez une case sur laquelle jouer : "))         #le joueur choisi une case
-            if select>9 or case[select-1]=="X" or case[select-1]=="O":                  #vérification entrée
+            if 0>select>9 or case[select-1]=="X" or case[select-1]=="O":                  #vérification entrée
                 while True:                                                             #same
-                    if select>9 or case[select-1]=="X" or case[select-1]=="O":
+                    if 0>select>9 or case[select-1]=="X" or case[select-1]=="O":
                         select = int(input("Mauvaise case... X, rejouez : "))           #same
-                    else:                                                               
+                    elif 0>select>9:                                                               
                         case[select-1] = "X"
                         break                                                           #but
             else:
@@ -108,90 +109,133 @@ while restart!="n" and restart!="N":                                            
                 break
             elif i==4:                                                                  #test match nul, fini en 4 'passages' dans la boucle
                 print("Match nul.")
-            if counter%2==0:                                                            #bot 1 partie /2
-                while True:                                                             #boucle pour le bot cherche où placer O
-                    #Forêt d'if droit devant
-                    #pour vérifier un paquet de condition pour jouer O
-                    #et éviter de placer plusieurs O
-                    #ou ne pas en placer du tout
-                    if case[1]==case[2] or case[3]==case[6] or case[4]==case[8]:        #test 1 condition
-                        if case[0]=="1":                                                #vérifie que la case cible est libre
-                            case[0] = "O"                                               #si ok place O
-                            break                                                       #sort de la boucle pour ne pas passer à d'autres if
-                    if case[0]==case[2] or case[4]==case[7]:                            #si précédent pas ok test tout les if
-                        if case[1]=="2":
-                            case[1] = "O"
-                            break
-                    if case[0]==case[1] or case[5]==case[8] or case[4]==case[6]:
-                        if case[2]=="3":
-                            case[2] = "O"
-                            break
-                    if case[0]==case[6] or case[4]==case[5]:
-                        if case[3]=="4":
-                            case[3] = "O"
-                            break
-                    if case[3]==case[4] or case[2]==case[8]:
-                        if case[5]=="6":
-                            case[5] = "O"
-                            break
-                    if case[2]==case[4] or case[0]==case[3] or case[7]==case[8]:
-                        if case[6]=="7":
-                            case[6] = "O"
-                            break
-                    if case[1]==case[4] or case[6]==case[8]:
-                        if case[7]=="8":
-                            case[7] = "O"
-                            break
-                    if case[0]==case[4] or case[2]==case[5] or case[6]==case[7]:
-                        if case[8]=="9":
-                            case[8] = "O"
-                            break
-                    if case[4]=="5":
-                        case[4] = "O"
-                        break
+            while True:                                                             #boucle pour le bot cherche où placer O
+                """
+                    Forêt d'if droit devant
+                    pour vérifier un paquet de condition pour jouer O
+                    et éviter de placer plusieurs O
+                    ou ne pas en placer du tout
+                """
+                if case[1]==case[2] or case[3]==case[6] or case[4]==case[8]:        #test 1 condition
+                    if case[0]=="1":                                                #vérifie que la case cible est libre
+                        case[0] = "O"                                               #si ok place O
+                        place = 1
+                        break                                                       #sort de la boucle pour ne pas passer à d'autres if
+                if case[0]==case[2] or case[4]==case[7]:                            #si précédent pas ok test tout les if
                     if case[1]=="2":
                         case[1] = "O"
+                        place = 2
                         break
+                if case[0]==case[1] or case[5]==case[8] or case[4]==case[6]:
+                    if case[2]=="3":
+                        case[2] = "O"
+                        place = 3
+                        break
+                if case[0]==case[6] or case[4]==case[5]:
                     if case[3]=="4":
                         case[3] = "O"
+                        place = 4
                         break
+                if case[3]==case[4] or case[2]==case[8]:
                     if case[5]=="6":
                         case[5] = "O"
+                        place = 6
                         break
+                if case[2]==case[4] or case[0]==case[3] or case[7]==case[8]:
+                    if case[6]=="7":
+                        case[6] = "O"
+                        place = 7
+                        break
+                if case[1]==case[4] or case[6]==case[8]:
                     if case[7]=="8":
                         case[7] = "O"
+                        place = 8
                         break
+                if case[0]==case[4] or case[2]==case[5] or case[6]==case[7]:
+                    if case[8]=="9":
+                        case[8] = "O"
+                        place = 9
+                        break
+                if case[4]=="5":
+                    case[4] = "O"
+                    place = 5
+                    break
+                if counter%2==0:                                                        #si partie paire, bot plus fort
                     if case[0]=="1":
                         case[0] = "O"
+                        place = 1
                         break
                     if case[2]=="3":
                         case[2] = "O"
+                        place = 3
                         break
                     if case[6]=="7":
                         case[6] = "O"
+                        place = 7
                         break
                     if case[8]=="9":
                         case[8] = "O"
+                        place = 9
+                        break
+                    if case[1]=="2":
+                        case[1] = "O"
+                        place = 2
+                        break
+                    if case[3]=="4":
+                        case[3] = "O"
+                        place = 4
+                        break
+                    if case[5]=="6":
+                        case[5] = "O"
+                        place = 6
+                        break
+                    if case[7]=="8":
+                        case[7] = "O"
+                        place = 8
                         break
                     else:
-                        break                                                           #pour sortir de la boucle en cas de match nul           
-                tab(case)                                                               #affiche plateau
-                print(f"O a joué en case {j+1}.")                                       #affiche la case du nouveau O
-                if winner(case)!=False:                                                 #test victoire
-                    break
-                elif i==4:                                                              #test nul
-                    print("Match nul.")
-            else:                                                                       #parties impaires
-                for j in range(9):                                                      #boucle pour défiler les cases de 1 à 9
-                    if case[j]!="X" and case[j]!="O":                                   #test case libre
-                        case[j] = "O"                                                   #si oui place O
-                        tab(case)                                                       #affiche plateau
-                        print(f"O a joué en case {j+1}.")                               #indique case O
-                        break                                                           #sortie boucle
-                if winner(case)!=False:                                                 #test victoire
-                    break
-                elif i==4:                                                              #test match nul
-                    print("Match nul.")
+                        break                                                           #pour sortir de la boucle en cas de match nul
+                else:                                                                   #si partie impaire, bot moins fort
+                    if case[1]=="2":
+                        case[1] = "O"
+                        place = 2
+                        break
+                    if case[3]=="4":
+                        case[3] = "O"
+                        place = 4
+                        break
+                    if case[5]=="6":
+                        case[5] = "O"
+                        place = 6
+                        break
+                    if case[7]=="8":
+                        case[7] = "O"
+                        place = 8
+                        break
+                    if case[0]=="1":
+                        case[0] = "O"
+                        place = 1
+                        break
+                    if case[2]=="3":
+                        case[2] = "O"
+                        place = 3
+                        break
+                    if case[6]=="7":
+                        case[6] = "O"
+                        place = 7
+                        break
+                    if case[8]=="9":
+                        case[8] = "O"
+                        place = 9
+                        break
+                    else:
+                        break         
+            tab(case)                                                               #affiche plateau
+            print(f"O a joué en case {place}.")                                     #où a joué O
+            if winner(case)!=False:                                                 #test victoire
+                break
+            elif i==4:                                                              #test nul
+                print("Match nul.") 
         restart=again(restart)                                                          #on recommence ?
         case,symbol,counter=reset(restart,case,symbol,counter)                          #plateau, joueur et compteur à jour
     else:                                                                               #si mauvaise selection du nombre de joueur
