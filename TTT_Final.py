@@ -150,7 +150,6 @@ while restart!="n" and restart!="N":                                            
                     case[8] = "O"
                     place = 9
                     break
-                
                 if counter%2==0:                                                        #si partie paire, bot plus fort
                     if case[0]=="1":
                         case[0] = "O"
