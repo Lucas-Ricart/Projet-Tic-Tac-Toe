@@ -109,87 +109,78 @@ while restart!="n" and restart!="N":                                            
                 break
             elif i==4:                                                                  #test match nul, fini en 4 'passages' dans la boucle
                 print("Match nul.")
-            while True:                                                             #boucle pour le bot cherche où placer O
-                """
-                    Forêt d'if droit devant
-                    pour vérifier un paquet de condition pour jouer O
-                    et éviter de placer plusieurs O
-                    ou ne pas en placer du tout
-                """
-                if case[1]==case[2] or case[3]==case[6] or case[4]==case[8]:        #test 1 condition
-                    if case[0]=="1":                                                #vérifie que la case cible est libre
-                        case[0] = "O"                                               #si ok place O
-                        place = 1
-                        break                                                       #sort de la boucle pour ne pas passer à d'autres if
-                if case[0]==case[2] or case[4]==case[7]:                            #si précédent pas ok test tout les if
-                    if case[1]=="2":
-                        case[1] = "O"
-                        place = 2
-                        break
-                if case[0]==case[1] or case[5]==case[8] or case[4]==case[6]:
-                    if case[2]=="3":
-                        case[2] = "O"
-                        place = 3
-                        break
-                if case[0]==case[6] or case[4]==case[5]:
-                    if case[3]=="4":
-                        case[3] = "O"
-                        place = 4
-                        break
-                if case[3]==case[4] or case[2]==case[8]:
-                    if case[5]=="6":
-                        case[5] = "O"
-                        place = 6
-                        break
-                if case[2]==case[4] or case[0]==case[3] or case[7]==case[8]:
-                    if case[6]=="7":
-                        case[6] = "O"
-                        place = 7
-                        break
-                if case[1]==case[4] or case[6]==case[8]:
-                    if case[7]=="8":
-                        case[7] = "O"
-                        place = 8
-                        break
-                if case[0]==case[4] or case[2]==case[5] or case[6]==case[7]:
-                    if case[8]=="9":
-                        case[8] = "O"
-                        place = 9
-                        break
-                if case[4]=="5":
+            while True:                                                                 #boucle bot cherche où placer O
+                if case[4]=="5":                                                        #joue toujours au mileu en priorité si possible
                     case[4] = "O"
                     place = 5
                     break
+                elif case[0]=="1" and\
+                    (case[1]==case[2] or case[3]==case[6] or case[4]==case[8]):
+                    case[0] = "O"                                                       #si ok place O
+                    place = 1
+                    break                                                               #sort de la boucle pour ne pas passer à d'autres if
+                elif case[1]=="2" and (case[0]==case[2] or case[4]==case[7]):           #si précédent pas ok test tout les if
+                    case[1] = "O"
+                    place = 2
+                    break
+                elif case[2]=="3"\
+                    and (case[0]==case[1] or case[5]==case[8] or case[4]==case[6]):
+                    case[2] = "O"
+                    place = 3
+                    break
+                elif case[3]=="4" and (case[0]==case[6] or case[4]==case[5]):
+                    case[3] = "O"
+                    place = 4
+                    break
+                elif case[5]=="6" and (case[3]==case[4] or case[2]==case[8]):
+                    case[5] = "O"
+                    place = 6
+                    break
+                elif case[6]=="7" and\
+                    (case[2]==case[4] or case[0]==case[3] or case[7]==case[8]):
+                    case[6] = "O"
+                    place = 7
+                    break
+                elif case[7]=="8" and (case[1]==case[4] or case[6]==case[8]):
+                    case[7] = "O"
+                    place = 8
+                    break
+                elif case[8]=="9" and\
+                    (case[0]==case[4] or case[2]==case[5] or case[6]==case[7]):
+                    case[8] = "O"
+                    place = 9
+                    break
+                
                 if counter%2==0:                                                        #si partie paire, bot plus fort
                     if case[0]=="1":
                         case[0] = "O"
                         place = 1
                         break
-                    if case[2]=="3":
+                    elif case[2]=="3":
                         case[2] = "O"
                         place = 3
                         break
-                    if case[6]=="7":
+                    elif case[6]=="7":
                         case[6] = "O"
                         place = 7
                         break
-                    if case[8]=="9":
+                    elif case[8]=="9":
                         case[8] = "O"
                         place = 9
                         break
-                    if case[1]=="2":
+                    elif case[1]=="2":
                         case[1] = "O"
                         place = 2
                         break
-                    if case[3]=="4":
+                    elif case[3]=="4":
                         case[3] = "O"
                         place = 4
                         break
-                    if case[5]=="6":
+                    elif case[5]=="6":
                         case[5] = "O"
                         place = 6
                         break
-                    if case[7]=="8":
+                    elif case[7]=="8":
                         case[7] = "O"
                         place = 8
                         break
@@ -200,41 +191,41 @@ while restart!="n" and restart!="N":                                            
                         case[1] = "O"
                         place = 2
                         break
-                    if case[3]=="4":
+                    elif case[3]=="4":
                         case[3] = "O"
                         place = 4
                         break
-                    if case[5]=="6":
+                    elif case[5]=="6":
                         case[5] = "O"
                         place = 6
                         break
-                    if case[7]=="8":
+                    elif case[7]=="8":
                         case[7] = "O"
                         place = 8
                         break
-                    if case[0]=="1":
+                    elif case[0]=="1":
                         case[0] = "O"
                         place = 1
                         break
-                    if case[2]=="3":
+                    elif case[2]=="3":
                         case[2] = "O"
                         place = 3
                         break
-                    if case[6]=="7":
+                    elif case[6]=="7":
                         case[6] = "O"
                         place = 7
                         break
-                    if case[8]=="9":
+                    elif case[8]=="9":
                         case[8] = "O"
                         place = 9
                         break
                     else:
                         break         
-            tab(case)                                                               #affiche plateau
-            print(f"O a joué en case {place}.")                                     #où a joué O
-            if winner(case)!=False:                                                 #test victoire
+            tab(case)                                                                   #affiche plateau
+            print(f"O a joué en case {place}.")                                         #où a joué O
+            if winner(case)!=False:                                                     #test victoire
                 break
-            elif i==4:                                                              #test nul
+            elif i==4:                                                                  #test nul
                 print("Match nul.") 
         restart=again(restart)                                                          #on recommence ?
         case,symbol,counter=reset(restart,case,symbol,counter)                          #plateau, joueur et compteur à jour
